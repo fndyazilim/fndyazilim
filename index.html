@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FND Yazılım ve Danışmanlık Ltd. Şti.</title>
+  <meta name="description" content="ERP kurulum ve destek, İş Zekası (Power BI), veritabanı ve BT danışmanlığı hizmetleri. İstanbul Pendik." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #2B7FFF;
+      --blue-dim: rgba(43,127,255,0.12);
+      --blue-border: rgba(43,127,255,0.25);
+      --bg: #0a1628;
+      --bg2: #0d1d35;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,0.55);
+      --faint: rgba(255,255,255,0.07);
+      --divider: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--divider);
+    }
+    .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 100px 60px 90px;
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-code-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-code-bg pre {
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px;
+      color: var(--blue);
+      line-height: 2;
+      opacity: 0.13;
+      white-space: pre;
+      position: absolute;
+      top: -10px;
+      right: -20px;
+      max-width: 55%;
+      text-align: left;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      color: var(--blue);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      margin-bottom: 28px;
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+    h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+    h1 .blue { color: var(--blue); }
+    .hero-sub {
+      font-size: 16.5px;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+      background: rgba(255,255,255,0.018);
+    }
+    .stat {
+      padding: 32px 0;
+      text-align: center;
+      border-right: 1px solid var(--divider);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 34px; font-weight: 800; color: var(--blue); letter-spacing: -1px; }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 5px; font-weight: 400; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 80px 60px; }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 52px;
+      max-width: 460px;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .service-card {
+      background: var(--faint);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 30px 26px;
+      transition: border-color .25s, background .25s, transform .2s;
+    }
+    .service-card:hover {
+      border-color: var(--blue-border);
+      background: rgba(43,127,255,0.06);
+      transform: translateY(-3px);
+    }
+    .svc-icon {
+      font-size: 26px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .svc-name {
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 10px;
+    }
+    .svc-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+    /* ── REFERENCES ── */
+    #referanslar { background: rgba(255,255,255,0.018); border-top: 1px solid var(--divider); }
+    .ref-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .ref-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 100px;
+      transition: border-color .25s, background .25s;
+    }
+    .ref-card:hover {
+      border-color: rgba(43,127,255,0.3);
+      background: rgba(43,127,255,0.04);
+    }
+    .ref-logo {
+      max-width: 130px;
+      max-height: 44px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+      transition: opacity .2s;
+    }
+    .ref-card:hover .ref-logo { opacity: 1; }
+    a.ref-card { text-decoration: none; cursor: pointer; }
+    .ref-name {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: .3px;
+    }
+    .ref-text-only {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .ref-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── TECH ── */
+    .tech-section {
+      padding: 52px 60px;
+      border-top: 1px solid var(--divider);
+    }
+    .tech-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tech-tag {
+      background: rgba(43,127,255,0.08);
+      border: 1px solid var(--blue-border);
+      color: rgba(255,255,255,0.7);
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ── CONTACT ── */
+    #iletisim { background: var(--bg2); border-top: 1px solid var(--divider); }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+    .cinfo-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--faint);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .cinfo-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .cinfo-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .cinfo-val { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.88); line-height: 1.5; }
+
+    /* FORM */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fnd-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 13px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .fnd-input::placeholder { color: rgba(255,255,255,0.3); }
+    .fnd-input:focus { border-color: var(--blue); }
+    textarea.fnd-input { resize: vertical; min-height: 120px; }
+    .form-submit {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s;
+    }
+    .form-submit:hover { opacity: .88; }
+    .form-note { font-size: 12px; color: var(--muted); text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 60px;
+      border-top: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.28); }
+    .footer-logo { font-size: 16px; font-weight: 800; color: rgba(255,255,255,0.45); }
+    .footer-logo span { color: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 70px 24px 60px; }
+      h1 { font-size: 36px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-right: none; border-bottom: 1px solid var(--divider); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--divider); }
+      section { padding: 60px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .tech-section { padding: 40px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">FND<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#hizmetler">Hizmetler</a></li>
+    <li><a href="#referanslar">Referanslar</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <a href="#iletisim"><button class="nav-cta">Teklif Al</button></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-code-bg">
+    <pre>SELECT musteri, SUM(ciro) FROM satislar
+  WHERE yil = 2024 GROUP BY musteri;
+
+SELECT * FROM projeler
+  WHERE durum = 'aktif' AND oncelik = 1;
+
+UPDATE stok SET miktar = miktar - @adet
+  WHERE urun_id = @id;
+
+CREATE INDEX idx_fatura
+  ON fatura_detay(tarih, musteri_id);
+
+EXEC sp_analiz_raporu
+  @baslangic = '2024-01-01',
+  @bitis = '2024-12-31';
+
+SELECT KPI, hedef, gerceklesen,
+  ROUND(gerceklesen/hedef*100,1) oran
+FROM performans_ozet;</pre>
+  </div>
+  <div class="hero-content">
+    <div class="badge"><span class="badge-dot"></span>Yazılım & Danışmanlık · Pendik, İstanbul</div>
+    <h1>İşletmeniz için<br><span class="blue">Doğru Yazılım</span><br>Çözümleri</h1>
+    <p class="hero-sub">ERP kurulum ve destek hizmetlerinden Power BI iş zekası çözümlerine, veritabanı yönetiminden BT danışmanlığına kadar işletmenizin ihtiyaçlarına özel hizmetler sunuyoruz.</p>
+    <div class="hero-btns">
+      <a href="#iletisim"><button class="btn-primary">Proje Başlatalım</button></a>
+      <a href="#referanslar"><button class="btn-ghost">Referanslarımız →</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">4+</div>
+    <div class="stat-label">Yıllık Tecrübe</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">7+</div>
+    <div class="stat-label">Referans Firma</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">IFS</div>
+    <div class="stat-label">ERP Uzmanlığı</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">Power BI</div>
+    <div class="stat-label">İş Zekası</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="hizmetler">
+  <div class="section-eyebrow">Hizmetlerimiz</div>
+  <h2 class="section-title">Ne yapıyoruz?</h2>
+  <p class="section-sub">İşletmenizin ihtiyaçlarına özel, ölçeklenebilir çözümler sunuyoruz.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="svc-icon">⚙️</span>
+      <div class="svc-name">ERP Kurulum ve Destek</div>
+      <div class="svc-desc">IFS ERP sisteminin kurulumu, konfigürasyonu, özel modül geliştirme ve süregelen teknik destek hizmetleri. İşletmenizin operasyonlarını kesintisiz sürdürmenizi sağlıyoruz.</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">📊</span>
+      <div class="svc-name">İş Zekası Yazılımları</div>
+      <div class="svc-desc">Power BI ile yönetim dashboardları, KPI takip sistemleri ve operasyonel raporlama. Ham verilerinizi karar almayı kolaylaştıran görsel raporlara dönüştürüyoruz.</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🗄️</span>
+      <div class="svc-name">Veritabanı Yönetimi</div>
+      <div class="svc-desc">Oracle ve SQL Server üzerinde performans optimizasyonu, PL/SQL özel geliştirme, yedekleme ve güvenlik yapılandırması. Verileriniz güvende ve erişilebilir.</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🤝</span>
+      <div class="svc-name">BT Danışmanlığı</div>
+      <div class="svc-desc">Süreç analizi, teknik altyapı planlama ve dijital dönüşüm yol haritası. Bütçenize uygun, gerçekçi çözümler öneriyor; uygulama sürecinde de yanınızda oluyoruz.</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🔗</span>
+      <div class="svc-name">Sistem Entegrasyonu</div>
+      <div class="svc-desc">Farklı yazılım sistemleri arasında veri akışı, API entegrasyonu ve otomasyon çözümleri. Silolar halinde çalışan sistemlerinizi birbirine bağlıyoruz.</div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">📱</span>
+      <div class="svc-name">Kurumsal Uygulama Geliştirme</div>
+      <div class="svc-desc">Saha operasyonları için mobil uygulamalar, barkod entegrasyonu ve ERP'ye bağlı iş akışı araçları. Ofis dışındaki ekiplerinizi de dijitalleştiriyoruz.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<div class="tech-section">
+  <div class="section-eyebrow" style="margin-bottom:20px">Çalıştığımız Teknolojiler</div>
+  <div class="tech-list">
+    <span class="tech-tag">IFS ERP</span>
+    <span class="tech-tag">Oracle Database</span>
+    <span class="tech-tag">PL/SQL</span>
+    <span class="tech-tag">SQL Server</span>
+    <span class="tech-tag">Power BI</span>
+    <span class="tech-tag">Python</span>
+    <span class="tech-tag">REST API</span>
+    <span class="tech-tag">.NET MAUI</span>
+    <span class="tech-tag">React</span>
+    <span class="tech-tag">Flask</span>
+  </div>
+</div>
+
+<!-- REFERENCES -->
+<section id="referanslar">
+  <div class="section-eyebrow" style="text-align:center">Referanslarımız</div>
+  <h2 class="section-title" style="text-align:center">Birlikte çalıştığımız firmalar</h2>
+  <p class="section-sub" style="text-align:center; margin-left:auto; margin-right:auto;">Farklı sektörlerden köklü firmalara hizmet vermenin gururunu taşıyoruz.</p>
+  <div class="ref-grid">
+    <a class="ref-card" href="https://www.meyis.com.tr" target="_blank" rel="noopener">
+      <img class="ref-logo" src="meyis-logo.png" alt="Meyis Otomotiv">
+      <span class="ref-name">Meyis Otomotiv</span>
+    </a>
+    <a class="ref-card" href="https://alberk.com" target="_blank" rel="noopener">
+      <img class="ref-logo" src="https://alberk.com/assets/theme/img/alberk-logo.svg" alt="Alberk Proses Makinaları" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="ref-name" style="display:block">Alberk Proses Makinaları</span>
+    </a>
+    <a class="ref-card" href="https://www.hadeka.com.tr" target="_blank" rel="noopener">
+      <img class="ref-logo" src="https://hadeka.com.tr/wp-content/uploads/2021/11/hadeka-logo-1024x358.png" alt="Hadeka İnşaat" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="ref-name" style="display:block">Hadeka İnşaat</span>
+    </a>
+    <a class="ref-card" href="https://www.kopuzlar.com" target="_blank" rel="noopener">
+      <img class="ref-logo" src="kopuzlar-logo-white.png" alt="Kopuzlar Şirketler Grubu" style="filter: none; opacity: 0.85;">
+      <span class="ref-name">Kopuzlar Şirketler Grubu</span>
+    </a>
+    <a class="ref-card" href="https://www.aroma.com.tr" target="_blank" rel="noopener">
+      <img class="ref-logo" src="https://aroma.com.tr/wp-content/uploads/2026/02/aroma-logo-yesil-300x35.png" alt="Aroma Meyve Suları" style="filter: brightness(0) invert(1);" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="ref-name" style="display:block">Aroma Meyve Suları</span>
+    </a>
+    <a class="ref-card" href="https://tolon.com" target="_blank" rel="noopener">
+      <img class="ref-logo" src="https://tolon.com/wp-content/uploads/2026/08/Tolon-OG.webp" alt="Tolon" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="ref-name" style="display:block">Tolon</span>
+    </a>
+    <a class="ref-card" href="https://www.ektam.com/tr/" target="_blank" rel="noopener">
+      <img class="ref-logo" src="ektam-logo.jpg" alt="Ektam" style="filter: none;">
+      <span class="ref-name">Ektam</span>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="iletisim">
+  <div class="contact-wrap">
+    <div>
+      <div class="section-eyebrow">İletişim</div>
+      <h2 class="section-title">Projenizi<br>konuşalım</h2>
+      <p class="section-sub" style="margin-bottom:28px">İhtiyacınızı anlatın, size özel bir çözüm tasarlayalım. Aynı gün dönüş yapıyoruz.</p>
+      <div class="contact-info-cards">
+        <div class="cinfo-card">
+          <div class="cinfo-icon">📞</div>
+          <div>
+            <div class="cinfo-label">Telefon</div>
+            <div class="cinfo-val"><a href="tel:+905394777148">0539 477 71 48</a></div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">✉️</div>
+          <div>
+            <div class="cinfo-label">E-posta</div>
+            <div class="cinfo-val"><a href="mailto:info@fndyazilim.com">info@fndyazilim.com</a></div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">📍</div>
+          <div>
+            <div class="cinfo-label">Adres</div>
+            <div class="cinfo-val">Kurtköy Mah. Ankara Cad. No:289/21<br>Yelken Plaza · Pendik / İstanbul</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <form class="contact-form" action="https://formspree.io/f/FORM_ID" method="POST">
+        <div class="form-row">
+          <input class="fnd-input" type="text" name="ad" placeholder="Adınız" required />
+          <input class="fnd-input" type="text" name="firma" placeholder="Firma adı" />
+        </div>
+        <input class="fnd-input" type="email" name="email" placeholder="E-posta adresiniz" required />
+        <input class="fnd-input" type="tel" name="telefon" placeholder="Telefon numaranız" />
+        <textarea class="fnd-input" name="mesaj" placeholder="Projenizden veya ihtiyacınızdan bahsedin..." required></textarea>
+        <button class="form-submit" type="submit">Mesaj Gönder →</button>
+        <p class="form-note">Bilgileriniz yalnızca sizinle iletişim kurmak amacıyla kullanılır.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2023 FND Yazılım ve Danışmanlık Ltd. Şti. · Tüm hakları saklıdır.</div>
+  <div class="footer-logo">FND<span>.</span></div>
+</footer>
+
+</body>
+</html>
