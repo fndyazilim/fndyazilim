@@ -355,6 +355,23 @@
     }
     .form-submit:hover { opacity: .88; }
     .form-note { font-size: 12px; color: var(--muted); text-align: center; }
+    .honeypot { display: none !important; visibility: hidden; }
+    .captcha-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .captcha-label { font-size: 14px; color: rgba(255,255,255,0.75); white-space: nowrap; }
+    .captcha-input {
+      width: 80px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .captcha-input:focus { border-color: var(--blue); }
+    .captcha-err { font-size: 12px; color: #ff6b6b; display: none; }
 
     /* ── FOOTER ── */
     footer {
@@ -578,7 +595,9 @@ FROM performans_ozet;</pre>
       </div>
     </div>
     <div>
-      <form class="contact-form" action="https://formspree.io/f/xbggqjoa" method="POST">
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/xbggqjoa" method="POST" onsubmit="return checkCaptcha()">
+        <!-- Honeypot: botlar bu alanı doldurur, insanlar görmez -->
+        <input class="honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
         <div class="form-row">
           <input class="fnd-input" type="text" name="ad" placeholder="Adınız" required />
           <input class="fnd-input" type="text" name="firma" placeholder="Firma adı" />
@@ -586,9 +605,35 @@ FROM performans_ozet;</pre>
         <input class="fnd-input" type="email" name="email" placeholder="E-posta adresiniz" required />
         <input class="fnd-input" type="tel" name="telefon" placeholder="Telefon numaranız" />
         <textarea class="fnd-input" name="mesaj" placeholder="Projenizden veya ihtiyacınızdan bahsedin..." required></textarea>
+        <div class="captcha-row">
+          <span class="captcha-label" id="captchaQ"></span>
+          <input class="captcha-input" type="number" id="captchaA" placeholder="?" required />
+          <span class="captcha-err" id="captchaErr">Hatalı cevap, tekrar deneyin.</span>
+        </div>
         <button class="form-submit" type="submit">Mesaj Gönder →</button>
         <p class="form-note">Bilgileriniz yalnızca sizinle iletişim kurmak amacıyla kullanılır.</p>
       </form>
+      <script>
+        // Rastgele basit matematik sorusu üret
+        var _ca, _cb;
+        function genCaptcha() {
+          _ca = Math.floor(Math.random() * 9) + 1;
+          _cb = Math.floor(Math.random() * 9) + 1;
+          document.getElementById('captchaQ').textContent = _ca + ' + ' + _cb + ' = ?';
+          document.getElementById('captchaA').value = '';
+        }
+        function checkCaptcha() {
+          var ans = parseInt(document.getElementById('captchaA').value, 10);
+          if (ans !== _ca + _cb) {
+            document.getElementById('captchaErr').style.display = 'inline';
+            genCaptcha(); // yeni soru üret
+            return false;
+          }
+          document.getElementById('captchaErr').style.display = 'none';
+          return true;
+        }
+        genCaptcha();
+      </script>
     </div>
   </div>
 </section>
